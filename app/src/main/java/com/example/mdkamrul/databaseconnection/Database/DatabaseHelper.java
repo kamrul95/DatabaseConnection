@@ -46,7 +46,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(TableAttributes.USERNAME,studentObject.getUserName());
         values.put(TableAttributes.PASSWORD,studentObject.getPassword());
-        dbInsert.insert(TableAttributes.STUDENTTABLENAME,null,values);
+        try{
+            dbInsert.insert(TableAttributes.STUDENTTABLENAME,null,values);
+            Log.i("Create","Successfully Created");
+        }catch (SQLiteException e){
+            Log.i("Create Error",e.toString());
+        }
 
     }
 
