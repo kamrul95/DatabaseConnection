@@ -29,7 +29,6 @@ public class Student {
     @Override
     public String toString() {
         return
-                "Username: " + userName + "\n" +
-                        "Password= " + password + "\n";
+                "Username: " + userName + "\n";
     }
 }

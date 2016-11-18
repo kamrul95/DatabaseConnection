@@ -15,49 +15,41 @@ import com.example.mdkamrul.databaseconnection.Model.Student;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    EditText eTUserName, eTPassword;
-    Button saveBtn;
-    boolean error;
-    ListView listView;
-    ArrayList<Student> arrayListStd;
-    ArrayAdapter<Student > adapter;
+    EditText UserName,UserPassword;
+    Button SaveButton;
+    ListView listViewStudent;
     DatabaseHelper db;
-
+    ArrayList<Student> arrayListStudent;
+    ArrayAdapter<Student> adapterStudentList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        eTUserName = (EditText) findViewById(R.id.editTextUserName);
-        eTPassword = (EditText) findViewById(R.id.editTextPassword);
-        saveBtn = (Button) findViewById(R.id.saveButton);
-        listView = (ListView) findViewById(R.id.listViewStudentInfo);
+        UserName = (EditText)findViewById (R.id.editTextUserName);
+        UserPassword = (EditText)findViewById(R.id.editTextPassword);
+        SaveButton = (Button)findViewById(R.id.saveButton);
+        listViewStudent = (ListView)findViewById(R.id.listViewStudentInfo);
 
         db = new DatabaseHelper(MainActivity.this);
-        arrayListStd = db.getAllStudents();
-        adapter = new ArrayAdapter<Student>(MainActivity.this, android.R.layout.simple_list_item_1, arrayListStd);
-        listView.setAdapter(adapter);
+        arrayListStudent = db.getAllStudents();
+        adapterStudentList=new ArrayAdapter<Student>(MainActivity.this,android.R.layout.simple_list_item_1,arrayListStudent);
+        listViewStudent.setAdapter(adapterStudentList);
 
-
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        SaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                error = false;
-                String username = eTUserName.getText().toString();
-                String password = eTPassword.getText().toString();
-
-
-                Student stdObj = new Student();
-                stdObj.setUserName(username);
-                stdObj.setPassword(password);
-                db.insertStudent(stdObj);
-                arrayListStd = db.getAllStudents();
-                adapter = new ArrayAdapter<Student>(MainActivity.this, android.R.layout.simple_list_item_1, arrayListStd);
-                listView.setAdapter(adapter);
-                Toast.makeText(MainActivity.this, "Data is saved!", Toast.LENGTH_LONG).show();
+                String Name = UserName.getText().toString();
+                String Password = UserPassword.getText().toString();
+                Student studentObject = new Student();
+                studentObject.setUserName(Name);
+                studentObject.setPassword(Password);
+                db.insertStudent (studentObject);
+                arrayListStudent= db.getAllStudents ();
+                adapterStudentList=new ArrayAdapter<Student>(MainActivity.this,android.R.layout.simple_list_item_1,arrayListStudent);
+                listViewStudent.setAdapter(adapterStudentList);
+                Toast.makeText(MainActivity.this,"Data Saved",Toast.LENGTH_SHORT).show();
             }
-
         });
+
     }
 }

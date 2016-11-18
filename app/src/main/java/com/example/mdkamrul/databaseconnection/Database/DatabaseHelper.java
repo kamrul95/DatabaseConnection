@@ -46,7 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(TableAttributes.USERNAME,studentObject.getUserName());
         values.put(TableAttributes.PASSWORD,studentObject.getPassword());
-            dbInsert.insert(TableAttributes.STUDENTTABLENAME,null,values);
+        dbInsert.insert(TableAttributes.STUDENTTABLENAME,null,values);
+
     }
 
     public ArrayList<Student> getAllStudents() {
@@ -58,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         while (!cursor.isAfterLast()){
             Student studentObject = new Student();
             studentObject.setUserName(cursor.getString(cursor.getColumnIndex(TableAttributes.USERNAME)));
-            studentObject.setPassword(cursor.getString(cursor.getColumnIndex(TableAttributes.PASSWORD)));
+            studentObject.setUserName(cursor.getString(cursor.getColumnIndex(TableAttributes.PASSWORD)));
             arrayListAllStudent.add(studentObject);
             cursor.moveToNext();
         }
